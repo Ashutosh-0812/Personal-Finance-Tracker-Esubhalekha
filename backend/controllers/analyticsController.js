@@ -1,5 +1,4 @@
 const Transaction = require('../models/Transaction');
-const { generateMonthlyChartData, generateCategoryChartData } = require('../utils/charts');
 
 // Get financial summary
 const getFinancialSummary = async (req, res, next) => {
@@ -26,16 +25,36 @@ const getFinancialSummary = async (req, res, next) => {
     
     const balance = totalIncome - totalExpense;
     
-    // Generate chart data
-    const monthlyData = generateMonthlyChartData(transactions);
-    const categoryData = generateCategoryChartData(transactions, 'expense');
+    // Generate monthly data directly in the controller
+    const monthlyData = transactions.reduce((acc, t) => {
+      const monthYear = t.date.toISOString().substring(0, 7); // YYYY-MM format
+      if (!acc[monthYear]) {
+        acc[monthYear] = { income: 0, expense: 0 };
+      }
+      
+      if (t.type === 'income') {
+        acc[monthYear].income += t.amount;
+      } else {
+        acc[monthYear].expense += t.amount;
+      }
+      
+      return acc;
+    }, {});
+    
+    // Generate category data
+    const expenseByCategory = transactions
+      .filter(t => t.type === 'expense')
+      .reduce((acc, t) => {
+        acc[t.category] = (acc[t.category] || 0) + t.amount;
+        return acc;
+      }, {});
     
     res.json({
       totalIncome,
       totalExpense,
       balance,
-      monthlyData,
-      categoryData
+      expenseByCategory,
+      monthlyData
     });
   } catch (error) {
     next(error);
@@ -43,5 +62,5 @@ const getFinancialSummary = async (req, res, next) => {
 };
 
 module.exports = {
-  getFinancialSummary,
+  getFinancialSummary
 };

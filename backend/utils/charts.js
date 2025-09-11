@@ -1,29 +1,37 @@
-// Format amount to currency
-const formatCurrency = (amount, currency = 'USD') => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: currency,
-  }).format(amount);
-};
-
-// Format date to local string
-const formatDate = (date) => {
-  return new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
+// Utility functions for generating chart data
+const generateMonthlyChartData = (transactions) => {
+  const monthlyData = {};
+  
+  transactions.forEach(transaction => {
+    const monthYear = transaction.date.toISOString().substring(0, 7); // YYYY-MM format
+    
+    if (!monthlyData[monthYear]) {
+      monthlyData[monthYear] = { income: 0, expense: 0 };
+    }
+    
+    if (transaction.type === 'income') {
+      monthlyData[monthYear].income += transaction.amount;
+    } else {
+      monthlyData[monthYear].expense += transaction.amount;
+    }
   });
+  
+  return monthlyData;
 };
 
-// Calculate total amount by type
-const calculateTotal = (transactions, type) => {
-  return transactions
-    .filter(transaction => transaction.type === type)
-    .reduce((total, transaction) => total + transaction.amount, 0);
+const generateCategoryData = (transactions) => {
+  const categoryData = {};
+  
+  transactions
+    .filter(t => t.type === 'expense')
+    .forEach(transaction => {
+      categoryData[transaction.category] = (categoryData[transaction.category] || 0) + transaction.amount;
+    });
+  
+  return categoryData;
 };
 
 module.exports = {
-  formatCurrency,
-  formatDate,
-  calculateTotal,
+  generateMonthlyChartData,
+  generateCategoryData
 };
