@@ -239,3 +239,7 @@ debug.log
 
 # Local development
 .local
+
+# EXCEPTION: Include backend public folder
+!backend/public/
+!backend/public/**/*
