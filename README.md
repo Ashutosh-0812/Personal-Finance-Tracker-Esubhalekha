@@ -1,6 +1,6 @@
 # 💰 Personal Finance Tracker
 
-A full-stack MERN application for managing personal finances with beautiful analytics and secure authentication.
+A full-stack MERN application for managing personal finances with beautiful analytics and secure authentication. I made this app as adddigment for internship at Esubhalekha
 
 ![MERN Stack](https://img.shields.io/badge/MERN-Full%20Stack-green)
 ![React](https://img.shields.io/badge/React-18.2-blue)
@@ -67,7 +67,7 @@ A full-stack MERN application for managing personal finances with beautiful anal
 ## 🚀 Live Demo
 
 The application is deployed on Vercel:  
-🔗 **Live URL**: `https://finance-tracker-yourname.vercel.app` (replace with your actual URL)
+🔗 **Live URL**: `(https://personal-finance-tracker-esubhalekh.vercel.app/)` (replace with your actual URL)
 
 ## 📦 Installation
 
