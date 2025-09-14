@@ -67,7 +67,7 @@ A full-stack MERN application for managing personal finances with beautiful anal
 ## 🚀 Live Demo
 
 The application is deployed on Vercel:  
-🔗 **Live URL**: `(https://personal-finance-tracker-esubhalekh.vercel.app/)` (replace with your actual URL)
+🔗 **Live URL**: https://personal-finance-tracker-esubhalekh.vercel.app/
 
 ## 📦 Installation
 
